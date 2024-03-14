@@ -37,6 +37,7 @@ Hooks.on("renderPause", function () {
   const iconSpacingY = settings.iconSpacingY;
   const top = `${-16 - (dimensionY - 128) / 2 + iconSpacingY}px`;
   const left = `calc(50% - ${dimensionX / 2}px)`;
+  // const left = `calc(50% - ${dimensionX / 2 - iconSpacingX}px)`;
 
   // Get random text
   settings.selectedText = selectRandomPauseText(settings.allText);
@@ -107,7 +108,14 @@ Hooks.on("renderPause", function () {
       }
     }
   }
+
+  // Set Animation
+  if (settings.animation || true) {
+    animationFunc(settings);
+  }
 });
+
+document.getElementById("optionsAnimationDropdown");
 
 function selectRandomPauseText(allText) {
   const lines = allText.split(/\n/);
@@ -139,12 +147,18 @@ function displayPauseText(settings) {
         color: textColor,
         "font-size": `${fontSize}em`,
         "font-family": `${fontFamily}`,
+        width: `50%`,
+        margin: `auto`,
+        "line-height": `24px`,
       });
     } else if (text.length !== 0 && !shadow) {
       $("#pause.paused figcaption").css({
         color: textColor,
         "font-size": `${fontSize}em`,
         "font-family": `${fontFamily}`,
+        width: `50%`,
+        margin: `auto`,
+        "line-height": `24px`,
       });
       $("#pause.paused figcaption").css({ color: textColor });
       $("#pause.paused").css("background", "none");
@@ -159,12 +173,18 @@ function displayPauseText(settings) {
         color: textColor,
         "font-size": `${fontSize}em`,
         "font-family": `${fontFamily}`,
+        width: `50%`,
+        margin: `auto`,
+        "line-height": `24px`,
       });
     } else if (text.length !== 0 && !shadow) {
       $("#pause.paused h3").css({
         color: textColor,
         "font-size": `${fontSize}em`,
         "font-family": `${fontFamily}`,
+        width: `50%`,
+        margin: `auto`,
+        "line-height": `24px`,
       });
       $("#pause.paused h3").css({ color: textColor });
       $("#pause.paused").css("background", "none");
@@ -200,4 +220,9 @@ function startPauseTextRotation(interval) {
       pauseTextTimer = null;
     }
   }, interval * 1000);
+}
+
+// Handle the Animations
+function animationFunc(settings) {
+  $("#pause").addClass("pulsate");
 }
